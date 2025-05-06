@@ -1,0 +1,16 @@
+{
+  "name": "mock-sensor-server",
+  "version": "1.0.0",
+  "description": "Mock WebSocket sensor server for patient dashboard",
+  "main": "mock-sensor-server.js",
+  "scripts": {
+    "start": "node mock-sensor-server.js"
+  },
+  "keywords": [],
+  "author": "Lin Yao",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ws": "^8.18.1"
+  }
+}
