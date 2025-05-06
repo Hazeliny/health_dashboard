@@ -11,7 +11,7 @@ The demos are presented as follows:
 
 - Demo of local developed app:
 
-![LOCALPATIENTDASHBOARD](https://github.com/Hazeliny/patient_dashboard/blob/main/patient-dashboard/src/assets/Local_Dev_Patient_Dashboard.gif)
+![LOCALPATIENTDASHBOARD](https://github.com/Hazeliny/patient_dashboard_improvement/blob/main/patient-dashboard/src/assets/Local_Dev_PatientDashboard-improv1.gif)
 
 
 ## How to Run Locally
@@ -80,7 +80,7 @@ http://localhost:5173
 
 - Tailwind CSS (Visulaization / Interactive Graphical UI)
 
-- Chart.js + react-chartjs-2
+- Chart.js + react-chartjs-2 + react-d3-speedometer
 
 - SPA
 
@@ -103,7 +103,7 @@ http://localhost:5173
 
     c) When the "**Real-Time Data**" radio button is selected, real-time sensor data is streamed to the frontend via **WebSocket** from a custom backend API (mock-sensor-server). This server simulates real medical sensors by generating and pushing random data to the client every 3 seconds.
 
-3. Sensor data is visualized using **interactive graphics** powered by Chart.js **bar charts**. The dashboard displays six **graph cards**, each representing a medical index.
+3. Sensor data is visualized using **interactive graphics** powered by Chart.js **bar charts** and **speedometer gauge**. The dashboard displays six **graph cards**, each representing a medical index.
 
     a) Each bar's color indicates the data's status based on a **legend**:
 
@@ -120,6 +120,16 @@ http://localhost:5173
     - Yellow line marks the lower threshold
 
     c) A **tooltip** displaying additional info appears when hovering over a bar.
+
+    d) Each metric card containing a bar chart features the following **interactive behavior**:
+
+    - **Hover Effect**: When the user hovers over a card, a blue border appears around it to indicate it's clickable.
+
+    - **Tooltip Prompt**: While hovering, a tooltip near the cursor displays the message: "Click to view visual monitor" to guide the user.
+
+    - **Click Action**: Upon clicking anywhere on the card, a colorful **gauge-style monitor** slides in from the left side of the screen.
+
+    - **Visual Monitor Panel**: This side panel presents a dynamic visual representation of the selected metric, complete with numeric values and colored indicators for easy interpretation.
 
 4. The frontend is built with **React + Vite**.
 
