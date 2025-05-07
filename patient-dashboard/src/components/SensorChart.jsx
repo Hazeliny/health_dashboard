@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Bar } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'
 import annotationPlugin from 'chartjs-plugin-annotation'
 import InfoModal from './InfoModal'
+import TrendPanel from './TrendPanel'
 
 // Register Chart.js plugin
 ChartJS.register(
@@ -15,13 +16,91 @@ ChartJS.register(
   annotationPlugin
 )
 
-export default function SensorChart({ data }) {
+const LegendBlock = () => (
+  <div className="absolute right-2 flex flex-col items-start space-y-0 text-xs">
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span>Above Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span>Below Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span>Normal</span></div>
+  </div>
+)
+
+const TrendIcon = ({ onClick }) => (
+  <button
+    className="absolute top-2 right-2 text-blue-500 hover:text-blue-600 text-sm z-10 flex items-center justify-center"
+    title="View historical trend"
+    onClick={onClick}
+    style={{ width: '36px', height: '26px', padding: 0, lineHeight: 1 }}
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round"
+    >
+      <polyline points="3 18 9 11 13 15 21 8" />
+      <circle cx="3" cy="18" r="1" />
+      <circle cx="9" cy="11" r="1" />
+      <circle cx="13" cy="15" r="1" />
+      <circle cx="21" cy="8" r="1" />
+    </svg>
+  </button>
+)
+
+export default function SensorChart({ data, patientId }) {
   const [openModal, setOpenModal] = useState(false)
   const [selectedMetric, setSelectedMetric] = useState(null)
+  const [openTrend, setOpenTrend] = useState(false)
+  const [selectedTrendMetric, setSelectedTrendMetric] = useState(null)
+  const [trendData, setTrendData] = useState([])
+  const [trendRange, setTrendRange] = useState('24h')
+
+  useEffect(() => {
+    if (openTrend && selectedTrendMetric) {
+      fetchTrendData(selectedTrendMetric, trendRange)
+    }
+  }, [trendRange])
 
   const handleCardClick = (metricKey) => {
     setSelectedMetric(metricKey)
     setOpenModal(true)
+  }
+
+  const fetchTrendData = async (metricKey, range) => {
+    const url = `/api/trend-data?metric=${metricKey}&patientId=${patientId}&range=${range}`;
+    console.log("🔍 Fetching trend data from:", url); 
+
+    try {
+      const res = await fetch(`/api/trend-data?metric=${metricKey}&patientId=${patientId}&range=${range}`)
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`)
+      }
+      const json = await res.json()
+      setTrendData(json)
+      console.log("Fetched trend data: ", json)
+    } catch (err) {
+      console.error("Failed to fetch trend data: ", err)
+      setTrendData([])
+    }
+  }
+
+  const handleTrendClick = async (metricKey) => {
+    setSelectedTrendMetric(metricKey)
+    setTrendRange('24h')
+    setOpenTrend(true)
+    await fetchTrendData(metricKey, '24h')
+/*
+    try {
+      // Fetch tren data from backend API // If the frontend and backend are in the same domain/resource
+      const res = await fetch(`/api/trend-data?metric=${metricKey}&patientId=${patientId}`) //Handle error
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`)
+      }
+        const data = await res.json()
+        setTrendData(data)
+        setOpenTrend(true)
+        console.log("Fetched trend data: ", data)
+      } catch(err) {
+        console.error("Failed to load trend data JSON: ", err)
+    }
+    // If different servers or different ports are deployed between frontend and backend or HTTPS is used, complete path is mandatory
+    //const response = await fetch(`https://localhost:8443/api/trend-data?metric=xxx&patientId=xxx`)
+*/
   }
 
   const cards = [
@@ -45,7 +124,7 @@ export default function SensorChart({ data }) {
     },
     {
       key: 'bloodPressure',
-      title: 'Blood Pressure (mmHg)',
+      title: 'Blood Pressure\n(mmHg)',
       value: {
         systolic: data.bloodPressure?.systolic,
         diastolic: data.bloodPressure?.diastolic,
@@ -75,7 +154,7 @@ export default function SensorChart({ data }) {
     },
     {
       key: 'bloodGlucose',
-      title: 'Blood Glucose (mmol/L)',
+      title: 'Blood Glucose\n(mmol/L)',
       value: data.bloodGlucose,
       unit: 'mmol/L',
       color: '#fb923c',
@@ -98,6 +177,14 @@ export default function SensorChart({ data }) {
         data={data}
         metric={selectedMetric}
       />
+      <TrendPanel
+        open={openTrend}
+        onClose={() => setOpenTrend(false)}
+        data={trendData}
+        metric={selectedTrendMetric}
+        range={trendRange}
+        setRange={setTrendRange}
+      />
 
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-1 bg-gray-100 shadow rounded">
       {cards.map((card, index) => {
@@ -118,24 +205,14 @@ export default function SensorChart({ data }) {
               className="group p-4 border rounded shadow-sm relative cursor-pointer hover:shadow-lg hover:border-blue-600 transition" onClick={() => handleCardClick(card.key)}
               title="Click to view visual monitor"
               >
-              {/* Tile */}
-              <h4 className="text-lg font-semibold mb-0">{card.title}</h4>
+              {/* Title */}
+              <h4 className="text-lg font-semibold mb-0 whitespace-pre-line">{card.title}</h4>
 
               {/* Vertical legend in the upper right corner */}
-              <div className="absolute top-9.2 right-2 flex flex-col items-start space-y-0 text-xs">
-                <div className="flex items-right space-x-0.5">
-                  <div className="w-3 h-2 bg-red-500 rounded-sm" />
-                  <span className="text-xs">Above Normal</span>
-                </div>
-                <div className="flex items-right space-x-1">
-                  <div className="w-3 h-2 bg-yellow-300 rounded-sm" />
-                  <span className="text-xs">Below Normal</span>
-                </div>
-                <div className="flex items-right space-x-1">
-                  <div className="w-3 h-2 bg-blue-500 rounded-sm" />
-                  <span className="text-xs">Normal</span>
-                </div>
-              </div>
+              <LegendBlock />
+
+              {/* 📈 Historical trend icon button */}
+              <TrendIcon onClick={(e) => { e.stopPropagation(); handleTrendClick(card.key) }} />
 
               {/* Two small bloodPressure bars */}
               <div className="grid grid-cols-2.5 gap-0.5 mt-11">
@@ -295,23 +372,13 @@ export default function SensorChart({ data }) {
             <div key={index} className="group p-4 border rounded shadow-sm relative cursor-pointer hover:shadow-lg hover:border-blue-600 transition" onClick={() => handleCardClick(card.key)}
               title="Click to view visual monitor"
             >
-              <h4 className="text-lg font-semibold mb-4">{card.title}</h4>
+              <h4 className="text-lg font-semibold mb-4 whitespace-pre-line">{card.title}</h4>
 
               {/* Vertical legend in the upper right croner */}
-              <div className="absolute top-13 right-2 flex flex-col items-start space-y-0 text-xs">
-                <div className="flex items-right space-x-0.5">
-                  <div className="w-3 h-2 bg-red-500 rounded-sm" />
-                  <span className="text-xs">Above Normal</span>
-                </div>
-                <div className="flex items-right space-x-0.5">
-                  <div className="w-3 h-2 bg-yellow-300 rounded-sm" />
-                  <span className="text-xs">Below Normal</span>
-                </div>
-                <div className="flex items-right space-x-0.5">
-                  <div className="w-3 h-2 bg-blue-500 rounded-sm" />
-                  <span className="text-xs">Normal</span>
-                </div>
-              </div>
+              <LegendBlock />
+
+              {/* 📈 Historical trend icon button */}
+              <TrendIcon onClick={(e) => { e.stopPropagation(); handleTrendClick(card.key) }} />
 
               <div className="h-50 w-30" style={{ marginTop: '120px' }}>
                 <Bar data={chartData} options={options} />

@@ -1,7 +1,12 @@
 const port = process.env.PORT || 8080; //In orde to be adapted to Azure
-const server = require('http').createServer();
+const express = require('express');
+const app = express();
+const server = require('http').createServer(app);
 const WebSocket = require('ws');
 const url = require('url'); // import this modul to parse and connect URL
+const { MongoClient } = require('mongodb');
+const uri = 'mongodb://localhost:27017'; // Replace with my MongoDB URI
+const client = new MongoClient(uri);
 
 //const wss = new WebSocket.Server({ port: 8080 });
 const wss = new WebSocket.Server({ server });
@@ -23,6 +28,21 @@ function generateSensorData(patientId) {
   };
 }
 
+async function run() {
+  await client.connect();
+  const db = client.db('sensorData');
+  const collection = db.collection('metrics');
+
+  // Ensure capped collection
+  const collections = await db.listCollections({ name: 'metrics' }).toArray();
+  if (collections.length === 0) {
+    await db.createCollection('metrics', {
+      capped: true,
+      size: 5242880, // 5MB
+      max: 360, // Maximum 360 records
+    });
+  }
+
 // Everytime a client connects
 wss.on('connection', (ws, req) => {
   const queryParams = url.parse(req.url, true).query;
@@ -30,9 +50,11 @@ wss.on('connection', (ws, req) => {
   console.log(`Client connected for patientId: ${patientId}`);
 
   // Send new random sensor data every 3sec
-  const interval = setInterval(() => {
+  const interval = setInterval(async () => {
     const sensorData = generateSensorData(patientId);
     ws.send(JSON.stringify(sensorData)); // Send to frontend
+    // Insert into MongoDB
+    await collection.insertOne(sensorData);
   }, 3000);
 
   // Clear the timer when the client disconnects
@@ -42,6 +64,56 @@ wss.on('connection', (ws, req) => {
   });
 });
 
-server.listen(port, () => {
-    console.log(`Mock sensor WebSocket server is running on port ${port}`);
+app.get('/api/trend-data', async (req, res) => {
+  const { metric, patientId, range = '24h' } = req.query;
+
+  if (!metric || !patientId) {
+    return res.status(400).json({ error: 'Missing metric or patientId' });
+  }
+
+  const now = new Date();
+  let startTime = new Date(now);
+
+  if (range === '7d') {
+    startTime.setDate(now.getDate() - 7);
+  } else if (range === '30d') {
+    startTime.setDate(now.getDate() - 30);
+  } else {
+    startTime.setHours(now.getHours() - 24);
+  }
+
+  try {
+    const cursor = collection.find({
+      patientId,
+      timestamp: { $gte: startTime.toISOString() },
+    }).sort({ timestamp: 1 });
+
+    const result = [];
+    for await (const doc of cursor) {
+      let value;
+      // Special handling for bloodPressure
+      if (metric === 'bloodPressure') {
+        value = doc.bloodPressure;
+      } else {
+        value = doc[metric];
+      }
+      if (value !== undefined) {
+        result.push({
+          timestamp: doc.timestamp,
+          value,
+        });
+      }
+    }
+    res.json(result);
+  } catch (error) {
+    console.error('Error fetching trend data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
+  server.listen(port, () => {
+      console.log(`Mock sensor WebSocket server is running on port ${port}`);
+  });
+}
+
+run().catch(console.error);

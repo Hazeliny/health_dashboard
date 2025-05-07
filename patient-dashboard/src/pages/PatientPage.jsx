@@ -131,9 +131,9 @@ export default function PatientPage() {
             </div>
 
             {/* Display Summary Tab */}
-              {activeTab === 'summary' && <SensorSummary data={sensorData} />}
+              {activeTab === 'summary' && <SensorSummary data={sensorData} patientId={id} />}
               {/* Display Chart Tab */}
-              {activeTab === 'chart' && <SensorChart data={sensorData} />}
+              {activeTab === 'chart' && <SensorChart data={sensorData} patientId={id} />}
           </div>
         </div>
       </div>
