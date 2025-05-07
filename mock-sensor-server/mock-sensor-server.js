@@ -103,6 +103,26 @@ app.get('/api/trend-data', async (req, res) => {
           value,
         });
       }
+      /* another alternative: expand the structure of bloodPressure object at backend instead of at frontend
+      if (metric === 'bloodPressure') {
+        value = doc.bloodPressure;
+        if (value?.systolic && value?.diastolic) {
+          result.push({
+            timestamp: doc.timestamp,
+            systolic: value.systolic,
+            diastolic: value.diastolic,
+          });
+        }
+      } else {
+        value = doc[metric];
+        if (value !== undefined) {
+          result.push({
+            timestamp: doc.timestamp,
+            value,
+          });
+        }
+      }
+      */
     }
     res.json(result);
   } catch (error) {

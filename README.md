@@ -72,7 +72,7 @@ http://localhost:5173
 
 ## Technologies stack
 
-- React + Vite
+- React + Vite + SPA
 
 - JavaScript / HTML / JSX / JSON
 
@@ -80,13 +80,11 @@ http://localhost:5173
 
 - Tailwind CSS (Visulaization / Interactive Graphical UI)
 
-- Chart.js + react-chartjs-2 + react-d3-speedometer
-
-- SPA
+- Chart.js + react-chartjs-2 + react-d3-speedometer + chartjs-plugin-zoom + chartjs-adapter-date-fns 
 
 - Responsive design
 
-- Node.js (backend API for simulating sensors to generate real-time medical data)
+- Node.js + Express + RESTful API (backend API for simulating sensors to generate real-time medical data)
 
 - Cloud deployment (Azure)
 
@@ -131,7 +129,31 @@ http://localhost:5173
 
     - **Visual Monitor Panel**: This side panel presents a dynamic visual representation of the selected metric, complete with numeric values and colored indicators for easy interpretation.
 
-4. The frontend is built with **React + Vite**.
+    e) **Historical Trend Line Chart Panel** visualizes the historical trend of a specific medical metric for a selected patient over a user-defined time range:
+
+    - 24 hours (default)
+
+    - 7 days
+
+    - 1 month
+
+    By clicking the **line chart icon** in the top-right corner of any metric card, users can open a sliding panel from the right that displays the corresponding trend line chart.
+
+    Within this panel, users can interact with the chart using mouse-based **zooming**, **panning**, and view **tooltips** for detailed data points.
+
+    🔄 **Backend Data Generation and Storage and management**: The backend simulates real-time sensor readings by generating random medical values **every 3 seconds**, and inserts them into a **MongoDB** database. The system assumes one data record is produced **every 2 hours**, meaning:
+
+    - 12 records for the past 24 hours
+
+    - 84 records for the past 7 days
+
+    - 360 records for the past month
+
+    The MongoDB collection is capped to store a maximum of 360 records, adhering to a **First-In-First-Out (FIFO)** policy to simulate continuous, real-time data updates, where the oldest data is automatically overwritten as new data arrives.
+
+    🔗 **Frontend Integration**: The frontend fetches data from the backend via a **RESTful API** to render the line chart dynamically based on the selected time range and metric.
+
+4. The frontend is built with **React + Vite + SPA**.
 
 5. **TailwindCSS** is used for implementing a **modern**, **responsive web interface**.
 
@@ -144,7 +166,7 @@ http://localhost:5173
 
 ## Challenges
 
-- Integrating WebSocket for real-time data.
+- Integrating WebSocket for real-time data and RESTful API implementation and data design.
 
 - Deploying frontend and backend to Azure.
 
