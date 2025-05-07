@@ -11,7 +11,7 @@ The demos are presented as follows:
 
 - Demo of local developed app:
 
-![LOCALPATIENTDASHBOARD](https://github.com/Hazeliny/patient_dashboard_improvement/blob/main/patient-dashboard/src/assets/Local_Dev_PatientDashboard-improv1.gif)
+![LOCALPATIENTDASHBOARD](https://github.com/Hazeliny/patient_dashboard_improvement/blob/main/patient-dashboard/src/assets/Local_Dev_PatientDashboard-improv2.gif)
 
 
 ## How to Run Locally
