@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import 'chartjs-adapter-date-fns';
+import DataAggregator from './DataAggregator';
 
 ChartJS.register(
   TimeScale,
@@ -35,24 +36,18 @@ const TrendPanel = ({ open, onClose, data, metric, range, setRange }) => {
     }
   }, [open]);
 
-  if (!open || !data || !metric) return null;
+//  if (!open || !data || !metric) return null;
+  if (!open) return null;
 
   const requiredDataPointsMap = {
     '24h': 12,
-    '7d': 84,
-    '30d': 360,
+    '7d': 12,
+    '30d': 12,
   };
   
   const requiredDataPoints = requiredDataPointsMap[range] || 12;
-  const filteredData = data.slice(-requiredDataPoints);
+  const filteredData = data.slice(-requiredDataPoints) || [];
 
-  if (filteredData.length < requiredDataPoints) {
-    return (
-      <div className="p-4">
-        <p>Insufficient data to display the trend. Please wait for more data to accumulate.</p>
-      </div>
-    );
-  }
   //expand the structure of bloodPressure object at frontend instead of at backend
   const normalizedData = metric === 'bloodPressure'
     ? filteredData.map(item => ({
@@ -64,6 +59,9 @@ const TrendPanel = ({ open, onClose, data, metric, range, setRange }) => {
         timestamp: item.timestamp,
         value: item.value,
       }));
+
+  // Now aggregate data according to the selected range
+  const aggregatedData = <DataAggregator data={normalizedData} range={range} />;
 
   let chartData;
   let yAxisTitle;
@@ -106,20 +104,7 @@ const TrendPanel = ({ open, onClose, data, metric, range, setRange }) => {
     };
     yAxisTitle = metric;
   }
-/*
-  const chartData = {
-    labels: data.map((item) => new Date(item.timestamp)),
-    datasets: [
-      {
-        label: metric,
-        data: data.map((item) => item.value),
-        fill: false,
-        borderColor: 'rgba(75,192,192,1)',
-        tension: 0.1,
-      },
-    ],
-  };
-*/
+
   const options = {
     responsive: true,
     plugins: {

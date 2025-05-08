@@ -32,8 +32,10 @@ export default function PatientPage() {
           })
           .catch(err => console.error('Failed to get static sensors data:', err))
     } else if (dataSource === 'realtime') {
-      socket = new WebSocket(`ws://localhost:8080?patientId=${id}`); // Connect the local WebSocket service
+//      socket = new WebSocket(`ws://localhost:8080?patientId=${id}`); // Connect the local WebSocket service
 //      socket = new WebSocket(`${import.meta.env.VITE_SOCKET_URL}?patientId=${id}`); // only this clicked patient's realtime data is received
+      const socketUrl = import.meta.env.VITE_SOCKET_URL || 'ws://localhost:8080';
+      socket = new WebSocket(`${socketUrl}?patientId=${id}`);
 
       socket.onopen = () => {
         console.log('WebSocket connected');
