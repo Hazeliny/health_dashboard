@@ -5,7 +5,9 @@ const server = require('http').createServer(app);
 const WebSocket = require('ws');
 const url = require('url'); // import this modul to parse and connect URL
 const { MongoClient } = require('mongodb');
-const uri = 'mongodb://localhost:27017'; // Replace with my MongoDB URI
+//const uri = 'mongodb://localhost:27017'; // Replace with my MongoDB URI
+//const uri = 'mongodb+srv://user_liny:67EZGSaD1yXSQKtm@cluster0.1jh6ohl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const uri = process.env.MONGO_URI;
 const client = new MongoClient(uri);
 
 //const wss = new WebSocket.Server({ port: 8080 });
