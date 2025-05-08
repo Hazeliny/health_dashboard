@@ -143,15 +143,15 @@ http://localhost:5173
 
     🔄 **Backend Data Generation and Storage and management**: The backend simulates real-time sensor readings by generating random medical values **every 3 seconds**, and inserts them into a **MongoDB** database. The system assumes one data record is produced **every 2 hours**, meaning:
 
-    - 12 records for the past 24 hours
+    - 12 records for the past 24 hours - displays 12 points
 
-    - 84 records for the past 7 days
+    - 84 records for the past 7 days - displays 12 points, each representing the average of 7 data points
 
-    - 360 records for the past month
+    - 360 records for the past month - displays 12 points, each representing the average of 30 data points
 
     The MongoDB collection is capped to store a maximum of 360 records, adhering to a **First-In-First-Out (FIFO)** policy to simulate continuous, real-time data updates, where the oldest data is automatically overwritten as new data arrives.
 
-    🔗 **Frontend Integration**: The frontend fetches data from the backend via a **RESTful API** to render the line chart dynamically based on the selected time range and metric.
+    🔗 **Frontend Integration**: The frontend fetches data from the backend via a **RESTful API** to render the line chart dynamically based on the selected time range and metric. And the front end also handle the **aggregation** for the 7 days and the past month data.
 
 4. The frontend is built with **React + Vite + SPA**.
 
