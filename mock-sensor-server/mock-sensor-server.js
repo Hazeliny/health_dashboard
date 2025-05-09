@@ -67,9 +67,16 @@ wss.on('connection', (ws, req) => {
   });
 });
 
-app.use(cors({
-  origin: 'https://yellow-desert-0928ad103.6.azurestaticapps.net',
-}));
+app.use((req, res, next) => {
+  const upgradeHeader = req.headers.upgrade || '';
+  if (upgradeHeader.toLowerCase() === 'websocket') {
+    // If it is WebSocket upgrade request，ignore CORS
+    return next();
+  }
+  cors({
+    origin: 'https://yellow-desert-0928ad103.6.azurestaticapps.net',
+  })(req, res, next);
+});
 
 app.get('/api/trend-data', async (req, res) => {
   const { metric, patientId, range = '24h' } = req.query;
