@@ -1,6 +1,7 @@
 const port = process.env.PORT || 8080; //In orde to be adapted to Azure
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const server = require('http').createServer(app);
 const WebSocket = require('ws');
 const url = require('url'); // import this modul to parse and connect URL
@@ -65,6 +66,10 @@ wss.on('connection', (ws, req) => {
     clearInterval(interval);
   });
 });
+
+app.use(cors({
+  origin: 'https://yellow-desert-0928ad103.6.azurestaticapps.net',
+}));
 
 app.get('/api/trend-data', async (req, res) => {
   const { metric, patientId, range = '24h' } = req.query;
