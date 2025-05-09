@@ -7,7 +7,7 @@ The demos are presented as follows:
 
 - Demo of the deployed app on Azure:
 
-![AZUREHEALTHDASHBOARD]()
+![AZUREHEALTHDASHBOARD](https://github.com/Hazeliny/health_dashboard/blob/main/patient-dashboard/src/assets/Azure_Pro_Health_Dashboard_v1.gif)
 
 - Demo of local developed app:
 
