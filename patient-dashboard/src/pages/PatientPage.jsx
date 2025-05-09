@@ -34,8 +34,6 @@ export default function PatientPage() {
     } else if (dataSource === 'realtime') {
 //      socket = new WebSocket(`ws://localhost:8080?patientId=${id}`); // Connect the local WebSocket service
       socket = new WebSocket(`${import.meta.env.VITE_SOCKET_URL}?patientId=${id}`); // only this clicked patient's realtime data is received
-//      const socketUrl = import.meta.env.VITE_SOCKET_URL || 'ws://localhost:8080';
-//      socket = new WebSocket(`${socketUrl}?patientId=${id}`);
       console.log("🛍️WebSocket URL:", import.meta.env.VITE_SOCKET_URL);
 
       socket.onopen = () => {
