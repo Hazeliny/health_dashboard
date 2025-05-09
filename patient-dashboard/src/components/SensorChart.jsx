@@ -62,9 +62,10 @@ export default function SensorChart({ data, patientId }) {
   }
 
   const fetchTrendData = async (metricKey, range) => {
-    const url = `/api/trend-data?metric=${metricKey}&patientId=${patientId}&range=${range}`;
-    console.log("🔍 Fetching trend data from:", url); 
+//    const url = `/api/trend-data?metric=${metricKey}&patientId=${patientId}&range=${range}`;
+//    console.log("🔍 Fetching trend data from:", url); 
     const API_BASE = import.meta.env.VITE_API_BASE_URL;
+    console.log("🔍 Fetching trend data from:", `${API_BASE}/api/trend-data?metric=${metricKey}&patientId=${patientId}&range=${range}`); 
 
     try {
       const res = await fetch(`${API_BASE}/api/trend-data?metric=${metricKey}&patientId=${patientId}&range=${range}`)
