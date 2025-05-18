@@ -101,7 +101,7 @@ http://localhost:5173
 
     c) When the "**Real-Time Data**" radio button is selected, real-time sensor data is streamed to the frontend via **WebSocket** from a custom backend API (mock-sensor-server). This server simulates real medical sensors by generating and pushing random data to the client every 3 seconds.
 
-3. Sensor data is visualized using **interactive graphics** powered by Chart.js **bar charts** and **speedometer gauge**. The dashboard displays six **graph cards**, each representing a medical index.
+3. Sensor data is visualized using **interactive graphics** powered by Chart.js **bar charts** and **speedometer gauge** and **trend line charts**. The dashboard displays six **graph cards**, each representing a medical index.
 
     a) Each bar's color indicates the data's status based on a **legend**:
 
@@ -151,7 +151,7 @@ http://localhost:5173
 
     The MongoDB collection is capped to store a maximum of 360 records, adhering to a **First-In-First-Out (FIFO)** policy to simulate continuous, real-time data updates, where the oldest data is automatically overwritten as new data arrives.
 
-    📝 **Frontend Integration**: The frontend fetches data from the backend via a **RESTful API** to render the **line chart** dynamically based on the **selected time range** and metric. And the front end also handle the **aggregation** for the 7 days and the past month data.
+    📝 **Frontend Integration**: The frontend fetches data from the backend via a **RESTful APIs** to render the **line chart** dynamically based on the **selected time range** and metric. And the front end also handle the **aggregation** for the 7 days and the past month data.
 
 4. The frontend is built with **React + Vite + SPA**, and the backend is built with **Node.js + Express + MongoDB**.
 
@@ -159,14 +159,14 @@ http://localhost:5173
 
 6. **WebSocket** enables **real-time** data transmission from the backend to the frontend.
 
-7. The application is fully deployed on **Microsoft Azure**.
+7. The application is fully deployed on **Microsoft Azure**, and **MongoDB Atlas Cloud Database** is used.
 
 8. The project implements **GitHub Actions (CI/CD)** for fully automated deployment of both frontend and backend.
 
 
 ## Challenges
 
-- Integrating WebSocket for real-time data and RESTful API implementation with Cors and data design.
+- Integrating WebSocket for real-time data and RESTful APIs implementation with Cors and data design.
 
 - Deploying frontend and backend to Azure including MongoDB database.
 

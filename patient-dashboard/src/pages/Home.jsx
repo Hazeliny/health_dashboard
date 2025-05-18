@@ -9,6 +9,7 @@ export default function Home() {
       .then(res => res.json())
       .then(data => setPatients(data.users))
   }, [])
+  
 
   return (
     <div>

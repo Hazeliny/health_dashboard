@@ -1,10 +1,10 @@
-const port = process.env.PORT || 8080; //In orde to be adapted to Azure
+const port = process.env.PORT || 8080; //In order to be adapted to Azure
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const server = require('http').createServer(app);
 const WebSocket = require('ws');
-const url = require('url'); // import this modul to parse and connect URL
+const url = require('url'); // import this module to parse and connect URL
 const { MongoClient } = require('mongodb');
 //const uri = 'mongodb://localhost:27017'; // Replace with my MongoDB URI
 //const uri = 'mongodb+srv://user_liny:67EZGSaD1yXSQKtm@cluster0.1jh6ohl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
