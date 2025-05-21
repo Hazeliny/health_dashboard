@@ -112,27 +112,30 @@ export default function PatientPage() {
               </div>
 
               {/* Radio buttons for data source */}
-              <div className="flex flex-col ml-12 space-y-2 text-xs text-black dark:text-black">
-                {['static', 'realtime'].map((value) => (
-                  <label key={value} className="flex items-center cursor-pointer space-x-2">
-                      <input
-                        type="radio"
-                        name="dataSource"
-                        value={value}
-                        checked={dataSource === value}
-                        onChange={() => setDataSource(value)}
-                        className="peer hidden focus:ring-2 focus:ring-blue-500"
-                      />
-                    <div className="w-4 h-4 relative rounded-full border-2
-                                    border-gray-400 dark:border-gray-400 
-                                    bg-white dark:bg-white peer-checked:border-blue-500">
-                      <div className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full 
-                                    bg-blue-500 transform -translate-x-1/2 -translate-y-1/2 
-                                    hidden peer-checked:block" />
-                    </div>
-                    <span className="capitalize">{value} Data</span>
-                  </label>
-                ))}
+              <div className="flex flex-col items-center ml-12 space-x-7 space-y-1 text-xs">
+                <label className="flex items-center space-x-1 text-black">
+                  <input
+                    type="radio"
+                    name="dataSource"
+                    value="static"
+                    checked={dataSource === 'static'}
+                    onChange={() => setDataSource('static')}
+                    className="h-3 w-3 accent-blue-600 dark:bg-white" 
+                  />
+                  <span className="text-black">Static Data</span>
+                </label>
+
+                <label className="flex items-center space-x-1 text-black">
+                  <input
+                    type="radio"
+                    name="dataSource"
+                    value="realtime"
+                    checked={dataSource === 'realtime'}
+                    onChange={() => setDataSource('realtime')}
+                    className='h-3 w-3 accent-blue-600 dark:bg-white' 
+                  />
+                  <span className="text-black">Real-Time Data</span>
+                </label>
               </div>
 
             </div>
