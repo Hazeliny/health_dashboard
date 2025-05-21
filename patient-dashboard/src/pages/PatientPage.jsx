@@ -113,7 +113,7 @@ export default function PatientPage() {
 
               {/* Radio buttons for data source */}
               <div className="flex flex-col items-center ml-12 space-x-7 space-y-1 text-xs">
-                <label className="flex items-center space-x-1 text-black dark:text-white">
+                <label className="flex items-center space-x-1 text-black dark:text-black">
                   <input
                     type="radio"
                     name="dataSource"
@@ -122,10 +122,10 @@ export default function PatientPage() {
                     onChange={() => setDataSource('static')}
                     className="h-3 w-3" 
                   />
-                  <span>Static Data</span>
+                  <span className="text-black dark:text-black">Static Data</span>
                 </label>
 
-                <label className="flex items-center space-x-1 text-black dark:text-white">
+                <label className="flex items-center space-x-1 text-black dark:text-black">
                   <input
                     type="radio"
                     name="dataSource"
@@ -134,7 +134,7 @@ export default function PatientPage() {
                     onChange={() => setDataSource('realtime')}
                     className='h-3 w-3' 
                   />
-                  <span>Real-Time Data</span>
+                  <span className="text-black dark:text-black">Real-Time Data</span>
                 </label>
               </div>
             </div>
