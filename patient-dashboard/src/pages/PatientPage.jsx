@@ -113,7 +113,7 @@ export default function PatientPage() {
 
               {/* Radio buttons for data source */}
               <div className="flex flex-col ml-12 space-y-2 text-xs text-black dark:text-black">
-                {['Static', 'Real-Time'].map((value) => (
+                {['static', 'realtime'].map((value) => (
                   <label key={value} className="flex items-center cursor-pointer space-x-2">
                       <input
                         type="radio"

@@ -10,7 +10,7 @@ export default function PatientDetails({ patient }) {
     <div className="p-4 bg-gray-100 shadow rounded">
       <div className="flex-1">
         <div className="mb-4">
-          <h3 className="text-2xl font-semibold mb-4 text-center dark:text-black">Patient Details</h3>
+          <h3 className="text-2xl font-semibold mb-4 text-center dark:text-gray">Patient Details</h3>
         </div>
       
         <div className="space-y-3 text-gray-700">
