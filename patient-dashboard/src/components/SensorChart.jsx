@@ -18,9 +18,9 @@ ChartJS.register(
 
 const LegendBlock = () => (
   <div className="absolute right-2 flex flex-col items-start space-y-0 text-xs">
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span>Above Normal</span></div>
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span>Below Normal</span></div>
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span>Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span className="back:text-black">Above Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span className="back:text-black">Below Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span className="back:text-black">Normal</span></div>
   </div>
 )
 

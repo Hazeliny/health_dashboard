@@ -113,28 +113,28 @@ export default function PatientPage() {
 
               {/* Radio buttons for data source */}
               <div className="flex flex-col items-center ml-12 space-x-7 space-y-1 text-xs">
-                <label className="flex items-center space-x-1 text-black dark:text-black">
+                <label className="flex items-center space-x-1 text-black">
                   <input
                     type="radio"
                     name="dataSource"
                     value="static"
                     checked={dataSource === 'static'}
                     onChange={() => setDataSource('static')}
-                    className="h-3 w-3" 
+                    className="h-3 w-3 accent-blue-600" 
                   />
-                  <span className="text-black dark:text-black">Static Data</span>
+                  <span className="text-black">Static Data</span>
                 </label>
 
-                <label className="flex items-center space-x-1 text-black dark:text-black">
+                <label className="flex items-center space-x-1 text-black">
                   <input
                     type="radio"
                     name="dataSource"
                     value="realtime"
                     checked={dataSource === 'realtime'}
                     onChange={() => setDataSource('realtime')}
-                    className='h-3 w-3' 
+                    className='h-3 w-3 accent-blue-600' 
                   />
-                  <span className="text-black dark:text-black">Real-Time Data</span>
+                  <span className="text-black">Real-Time Data</span>
                 </label>
               </div>
             </div>

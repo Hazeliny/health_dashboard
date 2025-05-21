@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-grey">Patients List</h2>
+      <h2 className="text-xl font-semibold mb-2 text-gray-800">Patients List</h2>
       <ul className="space-y-2">
         {patients.map(patient => (
           <li key={patient.id} className="border p-3 rounded hover:shadow">
