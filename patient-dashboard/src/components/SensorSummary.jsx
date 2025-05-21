@@ -16,8 +16,8 @@ export default function SensorSummary({ data }) {
 
   return (
     <div className="p-4 bg-gray-100 shadow rounded">
-      <h3 className="text-xl font-semibold mb-3">Resumen de Sensores</h3>
-      <ul className="space-y-2">
+      <h3 className="text-xl font-semibold mb-3 text-grey-700 dark:text-white">Resumen de Sensores</h3>
+      <ul className="space-y-2 text-grey-700 dark:text-white">
         <li><strong>Temperature:</strong> {temperature} °C</li>
         <li><strong>Heart Rate:</strong> {heartRate} bpm</li>
         <li><strong>Blood Pressure:</strong> {bloodPressureSystolic}/{bloodPressureDiastolic} mmHg</li>

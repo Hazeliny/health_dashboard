@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import PatientDetails from '../components/PatientDetails'
 import SensorSummary from '../components/SensorSummary'
 import SensorChart from '../components/SensorChart'
@@ -7,6 +7,7 @@ import SensorChart from '../components/SensorChart'
 export default function PatientPage() {
   const { id } = useParams()  // get patients' ID
   const navigate = useNavigate()
+  const location = useLocation();
   const [patient, setPatient] = useState(null)
   const [sensorData, setSensorData] = useState(null)
   const [activeTab, setActiveTab] = useState('summary') // Default display summary tab
@@ -67,7 +68,14 @@ export default function PatientPage() {
       <div className="flex items-center justify-between mb-8">
         <a
           href="#"
-          onClick={() => navigate(-1)}
+          onClick={(e) => {
+            e.preventDefault();
+            if (window.history.length > 1) {
+            navigate(-1);
+            } else {
+              navigate('/');
+            }
+          }}
           className="text-gray-400 hover:underline hover:text-white font-medium"
         >
           ← Back
@@ -105,7 +113,7 @@ export default function PatientPage() {
 
               {/* Radio buttons for data source */}
               <div className="flex flex-col items-center ml-12 space-x-7 space-y-1 text-xs">
-                <label className="flex items-center space-x-1">
+                <label className="flex items-center space-x-1 text-black dark:text-white">
                   <input
                     type="radio"
                     name="dataSource"
@@ -117,7 +125,7 @@ export default function PatientPage() {
                   <span>Static Data</span>
                 </label>
 
-                <label className="flex items-center space-x-1">
+                <label className="flex items-center space-x-1 text-black dark:text-white">
                   <input
                     type="radio"
                     name="dataSource"

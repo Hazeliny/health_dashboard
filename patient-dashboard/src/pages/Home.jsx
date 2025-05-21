@@ -9,11 +9,11 @@ export default function Home() {
       .then(res => res.json())
       .then(data => setPatients(data.users))
   }, [])
-  
+
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-2">Patients List</h2>
+      <h2 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">Patients List</h2>
       <ul className="space-y-2">
         {patients.map(patient => (
           <li key={patient.id} className="border p-3 rounded hover:shadow">
