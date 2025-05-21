@@ -36,7 +36,7 @@ const InfoModal = ({ open, onClose, data, metric }) => {
             className="bg-white shadow-lg h-full w-[400px] p-6 transition-transform transform duration-300 translate-x-0"
             style={{ animation: "slideInLeft 0.3s ease-out" }}
           >
-            <button onClick={onClose} className="float-right text-gray-500 hover:text-black">✖</button>
+            <button onClick={onClose} className="float-right text-gray-500 hover:text-black px-2 py-1 rounded dark:bg-gray-200 dark:hover:bg-gray-300">✖</button>
             <h2 className="text-xl font-bold mb-6 dark:text-gray-600">{config[metric].label}</h2>
             {isBloodPressure ? (
               <div className="flex flex-col gap-8 mt-8">

@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Router>
       <div className="max-w-5xl mx-auto p-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
-        <h1 className="text-5xl font-bold mb-8 text-center drop-shadow-lg text-gray dark:text-gray-600">🏥 Patient Dashboard</h1>
+        <h1 className="text-5xl font-bold mb-8 text-center drop-shadow-lg text-gray-700 dark:text-gray-700">🏥 Patient Dashboard</h1>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/patient/:id" element={<PatientPage />} />

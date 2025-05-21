@@ -121,10 +121,12 @@ export default function PatientPage() {
                         value={value}
                         checked={dataSource === value}
                         onChange={() => setDataSource(value)}
-                        className="hidden peer"
+                        className="peer hidden"
                       />
-                    <div className="w-4 h-4 flex items-center justify-center rounded-full border-2 border-gray-400 dark:border-gray-400 bg-white dark:bg-gray-400 peer-checked:border-blue-500">
-                      <div className="w-2 h-2 rounded-full bg-blue-500 peer-checked:inline-block hidden"></div>
+                    <div className="w-4 h-4 flex items-center justify-center rounded-full 
+                                    border-2 border-gray-400 dark:border-gray-400 
+                                    bg-white dark:bg-gray-300 peer-checked:border-blue-500">
+                      <div className="w-2 h-2 rounded-full bg-blue-500 hidden peer-checked:block" />
                     </div>
                     <span className="capitalize">{value} Data</span>
                   </label>
