@@ -154,10 +154,10 @@ const TrendPanel = ({ open, onClose, data, metric, range, setRange }) => {
   return (
     <div className="fixed top-0 right-0 w-1/3 h-full bg-white shadow-lg z-50 overflow-auto">
       <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-xl font-semibold dark:text-gray-600">
           {metric === 'bloodPressure' ? 'Blood Pressure Trend' : `${metric} Trend`}
         </h2>
-        <button onClick={onClose} className="text-gray-500 hover:text-gray-700">&times;
+        <button onClick={onClose} className="text-gray-500 hover:text-gray-700 px-2 py-1 rounded dark:bg-gray-200 dark:hover:bg-gray-300">&times;
           Close
         </button>
       </div>

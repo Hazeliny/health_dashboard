@@ -37,7 +37,7 @@ const InfoModal = ({ open, onClose, data, metric }) => {
             style={{ animation: "slideInLeft 0.3s ease-out" }}
           >
             <button onClick={onClose} className="float-right text-gray-500 hover:text-black">✖</button>
-            <h2 className="text-xl font-bold mb-6">{config[metric].label}</h2>
+            <h2 className="text-xl font-bold mb-6 dark:text-gray-600">{config[metric].label}</h2>
             {isBloodPressure ? (
               <div className="flex flex-col gap-8 mt-8">
                 <GaugeChart

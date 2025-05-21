@@ -18,15 +18,15 @@ ChartJS.register(
 
 const LegendBlock = () => (
   <div className="absolute right-2 flex flex-col items-start space-y-0 text-xs">
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span className="dark:text-black">Above Normal</span></div>
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span className="dark:text-black">Below Normal</span></div>
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span className="dark:text-black">Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span className="dark:text-gray-600">Above Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span className="dark:text-gray-600">Below Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span className="dark:text-gray-600">Normal</span></div>
   </div>
 )
 
 const TrendIcon = ({ onClick }) => (
   <button
-    className="absolute top-2 right-2 text-blue-500 hover:text-blue-600 text-sm z-10 flex items-center justify-center"
+    className="absolute top-2 right-2 text-blue-500 hover:text-blue-600 text-sm z-10 flex items-center justify-center bg-white dark:bg-white rounded shadow"
     title="View historical trend"
     onClick={onClick}
     style={{ width: '36px', height: '26px', padding: 0, lineHeight: 1 }}

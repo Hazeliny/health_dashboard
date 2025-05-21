@@ -4,7 +4,7 @@ import ReactSpeedometer from "react-d3-speedometer";
 const GaugeChart = ({ label, value, min, max, segments = 5, units = "" }) => {
     return (
         <div className="flex flex-col items-center">
-            <h2 className="text-lg font-semibold mb-2">{label}</h2>
+            <h2 className="text-lg font-semibold mb-2 dark:text-gray-600">{label}</h2>
             <ReactSpeedometer
               value={value}
               minValue={min}
