@@ -18,9 +18,9 @@ ChartJS.register(
 
 const LegendBlock = () => (
   <div className="absolute right-2 flex flex-col items-start space-y-0 text-xs">
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span className="back:text-black">Above Normal</span></div>
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span className="back:text-black">Below Normal</span></div>
-    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span className="back:text-black">Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-red-500 rounded-sm" /><span className="dark:text-black">Above Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-yellow-300 rounded-sm" /><span className="dark:text-black">Below Normal</span></div>
+    <div className="flex items-center space-x-1"><div className="w-3 h-2 bg-blue-500 rounded-sm" /><span className="dark:text-black">Normal</span></div>
   </div>
 )
 
@@ -208,7 +208,7 @@ export default function SensorChart({ data, patientId }) {
               title="Click to view visual monitor"
               >
               {/* Title */}
-              <h4 className="text-lg font-semibold mb-0 whitespace-pre-line">{card.title}</h4>
+              <h4 className="text-lg font-semibold mb-0 whitespace-pre-line dark:text-black">{card.title}</h4>
 
               {/* Vertical legend in the upper right corner */}
               <LegendBlock />
@@ -374,7 +374,7 @@ export default function SensorChart({ data, patientId }) {
             <div key={index} className="group p-4 border rounded shadow-sm relative cursor-pointer hover:shadow-lg hover:border-blue-600 transition" onClick={() => handleCardClick(card.key)}
               title="Click to view visual monitor"
             >
-              <h4 className="text-lg font-semibold mb-4 whitespace-pre-line">{card.title}</h4>
+              <h4 className="text-lg font-semibold mb-4 whitespace-pre-line dark:text-black">{card.title}</h4>
 
               {/* Vertical legend in the upper right croner */}
               <LegendBlock />

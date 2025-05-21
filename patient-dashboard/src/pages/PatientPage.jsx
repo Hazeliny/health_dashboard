@@ -112,31 +112,23 @@ export default function PatientPage() {
               </div>
 
               {/* Radio buttons for data source */}
-              <div className="flex flex-col items-center ml-12 space-x-7 space-y-1 text-xs">
-                <label className="flex items-center space-x-1 text-black">
-                  <input
-                    type="radio"
-                    name="dataSource"
-                    value="static"
-                    checked={dataSource === 'static'}
-                    onChange={() => setDataSource('static')}
-                    className="h-3 w-3 accent-blue-600" 
-                  />
-                  <span className="text-black">Static Data</span>
-                </label>
-
-                <label className="flex items-center space-x-1 text-black">
-                  <input
-                    type="radio"
-                    name="dataSource"
-                    value="realtime"
-                    checked={dataSource === 'realtime'}
-                    onChange={() => setDataSource('realtime')}
-                    className='h-3 w-3 accent-blue-600' 
-                  />
-                  <span className="text-black">Real-Time Data</span>
-                </label>
+              <div className="flex flex-col ml-12 space-y-2 text-xs text-black dark:text-black">
+                {['Static', 'Real-Time'].map((value) => (
+                  <label key={value} className="flex items-center cursor-pointer space-x-2">
+                      <input
+                        type="radio"
+                        name="dataSource"
+                        value={value}
+                        checked={dataSource === value}
+                        onChange={() => setDataSource(value)}
+                        className="hidden peer"
+                      />
+                    <div className="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:border-blue-500 peer-checked:bg-blue-500 dark:border-gray dark:peer-checked:border-blue-400 dark:peer-checked:bg-blue-400"></div>
+                    <span className="capitalize">{value} Data</span>
+                  </label>
+                ))}
               </div>
+
             </div>
 
             {/* Display Summary Tab */}
